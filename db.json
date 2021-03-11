@@ -1,0 +1,32 @@
+{
+  "workers": [
+    {
+      "firstName": "Пётр",
+      "lastName": "Веселов",
+      "middleName": "Аскерович",
+      "birthDate": "1980-10-01",
+      "description": "Лучший сотрудник месяца"
+    },
+    {
+      "firstName": "Алексей",
+      "lastName": "Смехов",
+      "middleName": "Игоревич",
+      "birthDate": "1965-02-03",
+      "description": "Ворует еду из общего холодильника"
+    },
+    {
+      "firstName": "Михаил",
+      "lastName": "Юморной",
+      "middleName": "Константинович",
+      "birthDate": "2010-05-25",
+      "description": "Умён не по годам (сын гендира)"
+    },
+    {
+      "firstName": "Габдулла",
+      "lastName": "Сезкембуласыз",
+      "middleName": "Робертович",
+      "birthDate": "1990-06-16",
+      "description": "Тихий, спокойный, характер стойкий - нордический"
+    }
+  ]
+}
