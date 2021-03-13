@@ -32,9 +32,9 @@ export default {
     display: flex;
     justify-content: space-around;
     text-align: center;
-    align-items: center;
-    border-top: 1px solid #bdbdbd;
-    border-left: 1px solid #bdbdbd;
+    /*align-items: center;*/
+    border-top: 2px solid #bdbdbd;
+    border-left: 2px solid #bdbdbd;
     border-right: 1px solid #bdbdbd;
   }
   .vue-table-row:last-child {
@@ -42,7 +42,9 @@ export default {
   }
   .vue-table-row .vtr-row {
     flex-basis: 16.6%;
-    padding: 10px 0;
+    padding: 10px 5px;
+    border-right: 1px solid #bdbdbd;
+    text-align: center;
   }
   .vue-table-row:nth-child(odd) {
     background: #fbfbfb;
