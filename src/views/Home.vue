@@ -1,18 +1,39 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <vue-table
+        :workersData = "WorkersList"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapActions, mapGetters } from 'vuex'
+import vueTable from '@/components/tables/vue-table'
 
 export default {
-  name: 'Home',
+  name: 'app',
   components: {
-    HelloWorld
+    vueTable
+  },
+  data: () => {
+    return {
+
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'WorkersList'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'getWorkers'
+    ])
+  },
+  mounted () {
+    this.getWorkers()
   }
 }
 </script>

@@ -1,41 +1,46 @@
 <template>
-  <div id="nav">
+  <div id="app">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+<!--    <router-link to="/about">About</router-link>-->
+
   </div>
   <router-view/>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-
-export default {
-  name: 'app',
-  components: {
-
-  },
-  data: () => {
-    return {
-
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'WorkersList'
-    ])
-  },
-  methods: {
-    ...mapActions([
-      'getWorkers'
-    ])
-  },
-  mounted () {
-    this.getWorkers()
-  }
-}
+// import { mapActions, mapGetters } from 'vuex'
+// import vueTable from './components/tables/vue-table'
+//
+// export default {
+//   name: 'app',
+//   components: {
+//     vueTable
+//   },
+//   data: () => {
+//     return {
+//
+//     }
+//   },
+//   computed: {
+//     ...mapGetters([
+//       'WorkersList'
+//     ])
+//   },
+//   methods: {
+//     ...mapActions([
+//       'getWorkers'
+//     ])
+//   },
+//   mounted () {
+//     this.getWorkers()
+//   }
+// }
 </script>
 
 <style>
+  * {
+    box-sizing: border-box;
+  }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -55,5 +60,9 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.container {
+  width: 1200px;
+  margin: 0 auto;
 }
 </style>
