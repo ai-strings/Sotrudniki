@@ -13,7 +13,7 @@ import { mapActions, mapGetters } from 'vuex'
 import vueTable from '@/components/tables/vue-table'
 
 export default {
-  name: 'app',
+  name: 'home',
   components: {
     vueTable
   },

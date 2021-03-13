@@ -16,11 +16,24 @@ const store = createStore({
         .then((response) => {
           commit('setWorkers', response.data)
         })
+    },
+    addWorker ({ commit }, payload) {
+      axios.post('http://localhost:3000/workers', payload)
+        .then((response) => {
+          commit('newWorker', response.data)
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   mutations: {
     setWorkers: (state, workers) => {
       state.workers = workers
+    },
+    newWorker: (state, worker) => {
+      state.workers.unshift(worker)
     }
   },
   getters: {

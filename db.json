@@ -1,6 +1,7 @@
 {
   "workers": [
     {
+      "id": "1",
       "firstName": "Пётр",
       "lastName": "Веселов",
       "middleName": "Аскерович",
@@ -8,6 +9,7 @@
       "description": "Лучший сотрудник месяца"
     },
     {
+      "id": "2",
       "firstName": "Алексей",
       "lastName": "Смехов",
       "middleName": "Игоревич",
@@ -15,6 +17,7 @@
       "description": "Ворует еду из общего холодильника"
     },
     {
+      "id": "3",
       "firstName": "Михаил",
       "lastName": "Юморной",
       "middleName": "Константинович",
@@ -22,11 +25,22 @@
       "description": "Умён не по годам (сын гендира)"
     },
     {
+      "id": "4",
       "firstName": "Габдулла",
       "lastName": "Сезкембуласыз",
       "middleName": "Робертович",
       "birthDate": "1990-06-16",
       "description": "Тихий, спокойный, характер стойкий - нордический"
+    },
+    {
+      "worker": {
+        "lastName": "",
+        "firstName": "",
+        "middleName": "",
+        "birthDate": "",
+        "description": ""
+      },
+      "id": "6DNvGCi"
     }
   ]
 }
