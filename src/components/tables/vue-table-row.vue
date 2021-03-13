@@ -5,7 +5,18 @@
   <div class="vtr-row row-middlename"> {{rowData.middleName}} </div>
   <div class="vtr-row row-bdate"> {{rowData.birthDate}} </div>
   <div class="vtr-row row-desc"> {{rowData.description}} </div>
-  <div class="vtr-row row-actions"> </div>
+  <div class="vtr-row row-actions">
+      <button class="btn-edit">
+        <svg>
+          <use xlink:href="@/assets/imgs/svg-inline.svg#edit"></use>
+        </svg>
+      </button>
+      <button class="btn-del">
+        <svg>
+          <use xlink:href="@/assets/imgs/svg-inline.svg#delete"></use>
+        </svg>
+      </button>
+  </div>
 </div>
 </template>
 
@@ -14,9 +25,9 @@ export default {
   name: 'vue-table-row',
   props: {
     rowData: {
-      type: Array,
+      type: Object,
       default: () => {
-        return []
+        return {}
       }
     }
   },
@@ -51,5 +62,19 @@ export default {
   }
   .vue-table-row:nth-child(even) {
     background: #eaeaea;
+  }
+  .vtr-row.row-actions {
+    display: flex;
+    justify-content: space-around;
+  }
+  .btn-edit, .btn-del {
+    width: 35px;
+    height: 35px;
+    background: #9696a0;
+  }
+  .btn-edit svg, .btn-del svg {
+    width: 21px;
+    height: 21px;
+    fill: white;
   }
 </style>

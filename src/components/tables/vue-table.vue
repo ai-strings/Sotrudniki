@@ -13,6 +13,7 @@
         v-for="row in workersData"
         :key="row.id"
         :rowData = "row"
+        :load="log(row)"
       />
     </div>
   </div>
@@ -20,7 +21,6 @@
 
 <script>
 import vueTableRow from '@/components/tables/vue-table-row'
-
 export default {
   name: 'vue-table',
   components: {
@@ -36,6 +36,11 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    log (item) {
+      console.log(item)
+    }
   },
   computed: {}
 }
