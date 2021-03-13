@@ -33,14 +33,12 @@
       "description": "Тихий, спокойный, характер стойкий - нордический"
     },
     {
-      "worker": {
-        "lastName": "",
-        "firstName": "",
-        "middleName": "",
-        "birthDate": "",
-        "description": ""
-      },
-      "id": "6DNvGCi"
+      "lastName": "Забавный",
+      "firstName": "Александр",
+      "middleName": "Братюшкинович",
+      "birthDate": "1920-11-17",
+      "description": "Очень красивый мужчина, приятно посмотреть! Правда работает он плохо: то вечно что-то теряет, то ломает...",
+      "id": "lnBQ-qs"
     }
   ]
 }

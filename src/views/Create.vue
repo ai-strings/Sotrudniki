@@ -4,19 +4,19 @@
     <h1>Добавить сотрудника</h1>
       <form @submit.prevent="handleSubmit" class="vue-add-worker">
         <label for="" class="vue-input-wr-label"> Фамилия сотрудника
-          <input placeholder="Иванов" type="text" class="vue-input vue-input-lastname" v-model="lastName" name="lastName">
+          <input placeholder="Иванов" type="text" class="vue-input vue-input-lastname" v-model="formData.lastName">
         </label>
         <label for="" class="vue-input-wr-label"> Имя сотрудника
-          <input placeholder="Иван" type="text" class="vue-input vue-input-firstname" v-model="firstName" name="firstName">
+          <input placeholder="Иван" type="text" class="vue-input vue-input-firstname" v-model="formData.firstName">
         </label>
         <label for="" class="vue-input-wr-label"> Отчество сотрудника
-          <input placeholder="Иванович" type="text" class="vue-input vue-input-middlename" v-model="middleName" name="middleName">
+          <input placeholder="Иванович" type="text" class="vue-input vue-input-middlename" v-model="formData.middleName">
         </label>
         <label for="" class="vue-input-wr-label"> Дата рождения сотрудника
-          <input placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="birthDate" name="birthDate">
+          <input placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="formData.birthDate">
         </label>
         <label for="" class="vue-input-wr-label"> Описание сотрудника
-          <textarea type="text" class="vue-textarea vue-input-description" v-model="description"></textarea>
+          <textarea type="text" class="vue-textarea vue-input-description" v-model="formData.description"></textarea>
         </label>
         <input type="submit" class="vue-add-worker-sbmt">
       </form>
@@ -33,8 +33,8 @@ export default {
   data: () => {
     return {
       formData: {
-        lastName: '',
         firstName: '',
+        lastName: '',
         middleName: '',
         birthDate: '',
         description: ''
@@ -49,7 +49,7 @@ export default {
       'addWorker'
     ]),
     handleSubmit () {
-      const { lastName, firstName, middleName, birthDate, description } = this.formData
+      const { firstName, lastName, middleName, birthDate, description } = this.formData
       const payload = {
         worker: {
           lastName,

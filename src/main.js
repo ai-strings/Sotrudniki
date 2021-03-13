@@ -18,7 +18,7 @@ const store = createStore({
         })
     },
     addWorker ({ commit }, payload) {
-      axios.post('http://localhost:3000/workers', payload)
+      axios.post('http://localhost:3000/workers', payload.worker)
         .then((response) => {
           commit('newWorker', response.data)
           console.log(response.data)
