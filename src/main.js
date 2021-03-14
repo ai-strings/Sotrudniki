@@ -4,13 +4,14 @@ import App from './App.vue'
 import axios from 'axios'
 import router from './router'
 
+// const resourceUri = 'http://localhost:3000/workers'
 const store = createStore({
   state: {
     workers: []
   },
   actions: {
     getWorkers ({ commit }) {
-      return axios('http://localhost:3000/workers', {
+      return axios('http://localhost:3000/workers/', {
         method: 'GET'
       })
         .then((response) => {
@@ -28,7 +29,7 @@ const store = createStore({
         })
     },
     editWorker ({ commit }, updatedWorker) {
-      axios.put('http://localhost:3000/workers', updatedWorker.worker)
+      axios.put('http://localhost:3000/workers/' + updatedWorker.id, updatedWorker)
         .then((response) => {
           commit('updWorker', response.data)
           console.log(response.data)
@@ -45,8 +46,8 @@ const store = createStore({
     newWorker: (state, worker) => {
       state.workers.unshift(worker)
     },
-    updWorker: (state, updatedWorker) => {
-      const index = state.workers.findIndex(w => w.id === updatedWorker.id)
+    updWorker: (state) => (updatedWorker) => {
+      const index = state.workers.findIndex(worker => { return worker.id === updatedWorker.id })
       if (index !== -1) {
         state.workers.splice(index, 1, updatedWorker)
       }

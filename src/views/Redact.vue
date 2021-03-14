@@ -32,12 +32,12 @@ export default {
   },
   data: () => {
     return {
-      // crntWorker: {
-      //   firstName: '',
-      //   lastName: '',
-      //   middleName: '',
-      //   birthDate: '',
-      //   description: ''
+      // formData: {
+      //   firstName: this.crntWorker.firstName,
+      //   lastName: this.crntWorker.lastName,
+      //   middleName: this.crntWorker.middleName,
+      //   birthDate: this.crntWorker.birthDate,
+      //   description: this.crntWorker.description
       // }
     }
   },
@@ -52,26 +52,25 @@ export default {
   methods: {
     ...mapActions([
       'getWorkers',
-      'addWorker'
+      'editWorker'
     ]),
     handleUpd () {
-      const { firstName, lastName, middleName, birthDate, description } = this.crntWorker
+      const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
       const updatedWorker = {
-        worker: {
-          lastName,
-          firstName,
-          middleName,
-          birthDate,
-          description
-        }
+        id,
+        lastName,
+        firstName,
+        middleName,
+        birthDate,
+        description
       }
       this.editWorker(updatedWorker)
     }
   },
   mounted () {
     this.getWorkers()
-    console.log(this.$route.query.wid)
-    console.log(this.crntWorker)
+    // console.log(this.$route.query.wid)
+    // console.log(this.crntWorker)
   }
 }
 </script>
