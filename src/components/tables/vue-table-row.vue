@@ -7,14 +7,10 @@
   <div class="vtr-row row-desc"> {{rowData.description}} </div>
   <div class="vtr-row row-actions">
       <button @click="selectWorker(rowData), redirectForEdit()"  class="btn-edit">
-        <svg>
-          <use xlink:href="@/assets/imgs/svg-inline.svg#edit"></use>
-        </svg>
+        <icon name="edit"></icon>
       </button>
       <button @click="selectWorker(rowData), deleteWorker()" class="btn-del">
-        <svg>
-          <use xlink:href="@/assets/imgs/svg-inline.svg#delete"></use>
-        </svg>
+        <icon name="trash"></icon>
       </button>
   </div>
 </div>
@@ -22,6 +18,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import Icon from '@/components/icons/icons'
 export default {
   name: 'vue-table-row',
   props: {
@@ -34,6 +31,9 @@ export default {
   },
   data () {
     return {}
+  },
+  components: {
+    Icon
   },
   computed: {},
   methods: {
