@@ -6,12 +6,12 @@
   <div class="vtr-row row-bdate"> {{rowData.birthDate}} </div>
   <div class="vtr-row row-desc"> {{rowData.description}} </div>
   <div class="vtr-row row-actions">
-      <button @click="selectWorker(rowData)"  class="btn-edit">
+      <button @click="selectWorker(rowData), redirectForEdit()"  class="btn-edit">
         <svg>
           <use xlink:href="@/assets/imgs/svg-inline.svg#edit"></use>
         </svg>
       </button>
-      <button class="btn-del">
+      <button @click="selectWorker(rowData), deleteWorker()" class="btn-del">
         <svg>
           <use xlink:href="@/assets/imgs/svg-inline.svg#delete"></use>
         </svg>
@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-
+import { mapActions } from 'vuex'
 export default {
   name: 'vue-table-row',
   props: {
@@ -38,21 +37,25 @@ export default {
   },
   computed: {},
   methods: {
+    ...mapActions([
+      'delWorker'
+    ]),
     selectWorker (rowData) {
-      const self = this
       this.currentWorker = rowData
       // console.log(this.currentWorker)
-      axios('http://localhost:3000/', {
-        method: 'GET'
-      })
-        .then((response) => {
-          self.$router.push('/redact' + '?wid=' + this.currentWorker.id)
-          // console.log(response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+    },
+    redirectForEdit () {
+      const self = this
+      self.$router.push('/redact' + '?wid=' + this.currentWorker.id)
+    },
+    deleteWorker () {
+      const workerToDelete = this.currentWorker
+      const msg = confirm('Точно хотите удалить сотрудника?')
+      if (msg) {
+        this.delWorker(workerToDelete)
+      }
     }
+
   }
 }
 </script>

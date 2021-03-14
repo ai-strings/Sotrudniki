@@ -37,7 +37,18 @@ const store = createStore({
         .catch(error => {
           console.log(error)
         })
+    },
+    delWorker ({ commit }, workerToDelete) {
+      axios.delete('http://localhost:3000/workers/' + workerToDelete.id)
+        .then((response) => {
+          commit('removeWorker', workerToDelete)
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
+
   },
   mutations: {
     setWorkers: (state, workers) => {
@@ -47,10 +58,15 @@ const store = createStore({
       state.workers.unshift(worker)
     },
     updWorker: (state) => (updatedWorker) => {
-      const index = state.workers.findIndex(worker => { return worker.id === updatedWorker.id })
+      const index = state.workers.findIndex(worker => {
+        return worker.id === updatedWorker.id
+      })
       if (index !== -1) {
         state.workers.splice(index, 1, updatedWorker)
       }
+    },
+    removeWorker: (state, workerToDelete) => {
+      state.workers = state.workers.filter(w => workerToDelete.id !== w.id)
     }
   },
   getters: {
