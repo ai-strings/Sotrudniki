@@ -6,7 +6,7 @@
   <div class="vtr-row row-bdate"> {{rowData.birthDate}} </div>
   <div class="vtr-row row-desc"> {{rowData.description}} </div>
   <div class="vtr-row row-actions">
-      <button class="btn-edit">
+      <button @click="selectWorker(rowData)"  class="btn-edit">
         <svg>
           <use xlink:href="@/assets/imgs/svg-inline.svg#edit"></use>
         </svg>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'vue-table-row',
   props: {
@@ -34,7 +36,24 @@ export default {
   data () {
     return {}
   },
-  computed: {}
+  computed: {},
+  methods: {
+    selectWorker (rowData) {
+      const self = this
+      this.currentWorker = rowData
+      // console.log(this.currentWorker)
+      axios('http://localhost:3000/', {
+        method: 'GET'
+      })
+        .then((response) => {
+          self.$router.push('/redact' + '?wid=' + this.currentWorker.id)
+          // console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  }
 }
 </script>
 

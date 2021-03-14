@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <router-link to="/">Home</router-link> |
-    <router-link to="/create"> Добавить сотрудника </router-link>
+    <router-link to="/create"> Добавить сотрудника </router-link> |
+    <router-link to="/redact"> Редактировать сотрудника </router-link> |
   </div>
   <router-view/>
 </template>

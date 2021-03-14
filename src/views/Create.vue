@@ -60,6 +60,13 @@ export default {
         }
       }
       this.addWorker(payload)
+      this.formData = {
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        birthDate: '',
+        description: ''
+      }
     }
   },
   mounted () {

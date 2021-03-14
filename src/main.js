@@ -26,6 +26,16 @@ const store = createStore({
         .catch(error => {
           console.log(error)
         })
+    },
+    editWorker ({ commit }, updatedWorker) {
+      axios.put('http://localhost:3000/workers', updatedWorker.worker)
+        .then((response) => {
+          commit('updWorker', response.data)
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   mutations: {
@@ -34,12 +44,22 @@ const store = createStore({
     },
     newWorker: (state, worker) => {
       state.workers.unshift(worker)
+    },
+    updWorker: (state, updatedWorker) => {
+      const index = state.workers.findIndex(w => w.id === updatedWorker.id)
+      if (index !== -1) {
+        state.workers.splice(index, 1, updatedWorker)
+      }
     }
   },
   getters: {
     WorkersList (state) {
       return state.workers
+    },
+    getWorker: (state) => (wid) => {
+      return state.workers.find(worker => { return worker.id === wid })
     }
+
   }
 })
 
