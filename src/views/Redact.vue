@@ -32,13 +32,6 @@ export default {
   },
   data: () => {
     return {
-      // formData: {
-      //   firstName: this.crntWorker.firstName,
-      //   lastName: this.crntWorker.lastName,
-      //   middleName: this.crntWorker.middleName,
-      //   birthDate: this.crntWorker.birthDate,
-      //   description: this.crntWorker.description
-      // }
     }
   },
   computed: {
@@ -46,12 +39,12 @@ export default {
       'getWorker'
     ]),
     crntWorker () {
-      return this.getWorker(this.$route.query.wid)
+      return this.getWorker
     }
   },
   methods: {
     ...mapActions([
-      'getWorkers',
+      'getSingleWorker',
       'editWorker'
     ]),
     handleUpd () {
@@ -68,9 +61,7 @@ export default {
     }
   },
   mounted () {
-    this.getWorkers()
-    // console.log(this.$route.query.wid)
-    // console.log(this.crntWorker)
+    this.getSingleWorker(this.$route.query.wid)
   }
 }
 </script>

@@ -9,6 +9,7 @@ const store = createStore({
   state: {
     workers: [],
     paginatedWorkers: [],
+    singleWorker: {},
     workersCount: null
   },
   actions: {
@@ -38,6 +39,15 @@ const store = createStore({
         })
         .catch(error => {
           console.log(error)
+        })
+    },
+    getSingleWorker ({ commit }, wid) {
+      return axios('http://localhost:3000/workers/' + wid, {
+        method: 'GET'
+      })
+        .then((response) => {
+          console.log(response.data)
+          commit('setSingleWorker', response.data)
         })
     },
     editWorker ({ commit }, updatedWorker) {
@@ -75,16 +85,19 @@ const store = createStore({
     newWorker: (state, worker) => {
       state.workers.unshift(worker)
     },
+    setSingleWorker: (state, singleWorker) => {
+      state.singleWorker = singleWorker
+    },
     updWorker: (state) => (updatedWorker) => {
-      const index = state.workers.findIndex(worker => {
+      const index = state.paginatedWorkers.findIndex(worker => {
         return worker.id === updatedWorker.id
       })
       if (index !== -1) {
-        state.workers.splice(index, 1, updatedWorker)
+        state.paginatedWorkers.splice(index, 1, updatedWorker)
       }
     },
     removeWorker: (state, workerToDelete) => {
-      state.workers = state.workers.filter(w => workerToDelete.id !== w.id)
+      state.paginatedWorkers = state.paginatedWorkers.filter(w => workerToDelete.id !== w.id)
     }
   },
   getters: {
@@ -97,8 +110,8 @@ const store = createStore({
     paginatedWorkersList (state) {
       return state.paginatedWorkers
     },
-    getWorker: (state) => (wid) => {
-      return state.workers.find(worker => { return worker.id === wid })
+    getWorker (state) {
+      return state.singleWorker
     }
 
   }

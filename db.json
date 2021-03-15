@@ -2,7 +2,7 @@
   "workers": [
     {
       "id": "1",
-      "lastName": "Веселовкинty",
+      "lastName": "Веселовкин",
       "firstName": "Пётр",
       "middleName": "Аскерович",
       "birthDate": "1980-10-01",
@@ -519,14 +519,6 @@
       "birthDate": "1920-10-21",
       "description": "На нем приятно тестить",
       "id": "Jhkrk7D"
-    },
-    {
-      "lastName": "Красавчиков",
-      "firstName": "Андрей",
-      "middleName": "Афанасьевич",
-      "birthDate": "1920-10-21",
-      "description": "На нем приятно тестить",
-      "id": "McYZStj"
     }
   ]
 }
