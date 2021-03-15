@@ -3,6 +3,7 @@
     <div class="container">
       <vue-table
         :workersData = "WorkersList"
+        :paginatedWorkersData = "paginatedWorkersList"
       />
     </div>
   </div>
@@ -24,16 +25,19 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'WorkersList'
+      'WorkersList',
+      'paginatedWorkersList'
     ])
   },
   methods: {
     ...mapActions([
-      'getWorkers'
+      'getWorkers',
+      'getPaginatedWorkers'
     ])
   },
   mounted () {
     this.getWorkers()
+    this.getPaginatedWorkers(1)
   }
 }
 </script>

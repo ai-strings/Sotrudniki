@@ -7,7 +7,8 @@ import router from './router'
 // const resourceUri = 'http://localhost:3000/workers'
 const store = createStore({
   state: {
-    workers: []
+    workers: [],
+    paginatedWorkers: []
   },
   actions: {
     getWorkers ({ commit }) {
@@ -16,6 +17,14 @@ const store = createStore({
       })
         .then((response) => {
           commit('setWorkers', response.data)
+        })
+    },
+    getPaginatedWorkers ({ commit }, pageNum) {
+      return axios('http://localhost:3000/workers?_page=' + pageNum, {
+        method: 'GET'
+      })
+        .then((response) => {
+          commit('setPaginatedWorkers', response.data)
         })
     },
     addWorker ({ commit }, payload) {
@@ -54,6 +63,9 @@ const store = createStore({
     setWorkers: (state, workers) => {
       state.workers = workers
     },
+    setPaginatedWorkers: (state, paginatedWorkers) => {
+      state.paginatedWorkers = paginatedWorkers
+    },
     newWorker: (state, worker) => {
       state.workers.unshift(worker)
     },
@@ -72,6 +84,9 @@ const store = createStore({
   getters: {
     WorkersList (state) {
       return state.workers
+    },
+    paginatedWorkersList (state) {
+      return state.paginatedWorkers
     },
     getWorker: (state) => (wid) => {
       return state.workers.find(worker => { return worker.id === wid })
