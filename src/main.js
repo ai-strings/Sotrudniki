@@ -8,7 +8,8 @@ import router from './router'
 const store = createStore({
   state: {
     workers: [],
-    paginatedWorkers: []
+    paginatedWorkers: [],
+    workersCount: null
   },
   actions: {
     getWorkers ({ commit }) {
@@ -24,7 +25,9 @@ const store = createStore({
         method: 'GET'
       })
         .then((response) => {
+          console.log(response.headers['x-total-count'])
           commit('setPaginatedWorkers', response.data)
+          commit('setWorkersCount', response.headers['x-total-count'])
         })
     },
     addWorker ({ commit }, payload) {
@@ -63,6 +66,9 @@ const store = createStore({
     setWorkers: (state, workers) => {
       state.workers = workers
     },
+    setWorkersCount: (state, workersCount) => {
+      state.workersCount = workersCount
+    },
     setPaginatedWorkers: (state, paginatedWorkers) => {
       state.paginatedWorkers = paginatedWorkers
     },
@@ -84,6 +90,9 @@ const store = createStore({
   getters: {
     WorkersList (state) {
       return state.workers
+    },
+    getWorkersCount (state) {
+      return state.workersCount
     },
     paginatedWorkersList (state) {
       return state.paginatedWorkers

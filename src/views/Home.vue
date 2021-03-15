@@ -2,7 +2,6 @@
   <div class="home">
     <div class="container">
       <vue-table
-        :workersData = "WorkersList"
         :paginatedWorkersData = "paginatedWorkersList"
       />
     </div>
@@ -36,7 +35,7 @@ export default {
     ])
   },
   mounted () {
-    this.getWorkers()
+    // this.getWorkers()
     this.getPaginatedWorkers(1)
   }
 }

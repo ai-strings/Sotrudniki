@@ -33,7 +33,7 @@
 
 <script>
 import vueTableRow from '@/components/tables/vue-table-row'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'vue-table',
   components: {
@@ -83,8 +83,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'getWorkersCount'
+    ]),
     pages () {
-      return Math.ceil(this.workersData.length / 10)
+      return Math.ceil(this.getWorkersCount / 10)
     }
   }
 }
