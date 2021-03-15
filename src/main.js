@@ -7,20 +7,20 @@ import router from './router'
 // const resourceUri = 'http://localhost:3000/workers'
 const store = createStore({
   state: {
-    workers: [],
+    // workers: [],
     paginatedWorkers: [],
     singleWorker: {},
     workersCount: null
   },
   actions: {
-    getWorkers ({ commit }) {
-      return axios('http://localhost:3000/workers/', {
-        method: 'GET'
-      })
-        .then((response) => {
-          commit('setWorkers', response.data)
-        })
-    },
+    // getWorkers ({ commit }) {
+    //   return axios('http://localhost:3000/workers/', {
+    //     method: 'GET'
+    //   })
+    //     .then((response) => {
+    //       commit('setWorkers', response.data)
+    //     })
+    // },
     getPaginatedWorkers ({ commit }, pageNum) {
       return axios('http://localhost:3000/workers?_page=' + pageNum, {
         method: 'GET'

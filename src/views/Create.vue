@@ -3,14 +3,8 @@
     <div class="container">
     <h1>Добавить сотрудника</h1>
       <form @submit.prevent="handleSubmit" class="vue-add-worker">
-        <label for="" class="vue-input-wr-label"> Фамилия сотрудника
-          <input placeholder="Иванов" type="text" class="vue-input vue-input-lastname" v-model="formData.lastName">
-        </label>
-        <label for="" class="vue-input-wr-label"> Имя сотрудника
-          <input placeholder="Иван" type="text" class="vue-input vue-input-firstname" v-model="formData.firstName">
-        </label>
-        <label for="" class="vue-input-wr-label"> Отчество сотрудника
-          <input placeholder="Иванович" type="text" class="vue-input vue-input-middlename" v-model="formData.middleName">
+        <label for="" class="vue-input-wr-label"> ФИО сотрудника
+          <input placeholder="Иванов" type="text" class="vue-input vue-input-fullname" v-model="formData.fullName">
         </label>
         <label for="" class="vue-input-wr-label"> Дата рождения сотрудника
           <input placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="formData.birthDate">
@@ -33,9 +27,7 @@ export default {
   data: () => {
     return {
       formData: {
-        firstName: '',
-        lastName: '',
-        middleName: '',
+        fullName: '',
         birthDate: '',
         description: ''
       }
@@ -49,7 +41,9 @@ export default {
       'addWorker'
     ]),
     handleSubmit () {
-      const { firstName, lastName, middleName, birthDate, description } = this.formData
+      const splitFullName = { ...this.formData.fullName.split(/(\s+)/).filter(function (e) { return e.trim().length > 0 }) }
+      const { firstName, lastName, middleName } = { firstName: splitFullName[1], lastName: splitFullName[0], middleName: splitFullName[2] }
+      const { birthDate, description } = this.formData
       const payload = {
         worker: {
           lastName,
@@ -61,9 +55,7 @@ export default {
       }
       this.addWorker(payload)
       this.formData = {
-        firstName: '',
-        lastName: '',
-        middleName: '',
+        fullName: '',
         birthDate: '',
         description: ''
       }

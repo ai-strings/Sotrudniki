@@ -50,7 +50,7 @@ export default {
     },
     deleteWorker () {
       const workerToDelete = this.currentWorker
-      const msg = confirm('Точно хотите удалить сотрудника?')
+      const msg = confirm('Запись будет удалена. Уверены?')
       if (msg) {
         this.delWorker(workerToDelete)
       }

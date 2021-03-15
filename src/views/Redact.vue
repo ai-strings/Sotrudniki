@@ -3,14 +3,8 @@
     <div class="container">
       <h1>Редактировать сотрудника</h1>
       <form @submit.prevent="handleUpd" class="vue-add-worker">
-        <label for="" class="vue-input-wr-label"> Фамилия сотрудника
-          <input type="text" class="vue-input vue-input-lastname" v-model="crntWorker.lastName">
-        </label>
-        <label for="" class="vue-input-wr-label"> Имя сотрудника
-          <input placeholder="Иван" type="text" class="vue-input vue-input-firstname" v-model="crntWorker.firstName">
-        </label>
-        <label for="" class="vue-input-wr-label"> Отчество сотрудника
-          <input placeholder="Иванович" type="text" class="vue-input vue-input-middlename" v-model="crntWorker.middleName">
+        <label for="" class="vue-input-wr-label"> ФИО сотрудника
+          <input type="text" class="vue-input vue-input-lastname" v-model="editedFullname">
         </label>
         <label for="" class="vue-input-wr-label"> Дата рождения сотрудника
           <input placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="crntWorker.birthDate">
@@ -32,6 +26,7 @@ export default {
   },
   data: () => {
     return {
+      editedFullname: ''
     }
   },
   computed: {
@@ -40,6 +35,17 @@ export default {
     ]),
     crntWorker () {
       return this.getWorker
+    },
+    crntWorkerFullname: {
+      get () {
+        const crntWrkrFnameObj = this.crntWorker
+        const index = Object.values(crntWrkrFnameObj).indexOf(this.crntWorker.lastName)
+        console.log(index)
+        return Object.values(crntWrkrFnameObj).splice(index, 3).join(' ')
+      },
+      set (newValue) {
+        this.editedFullname = newValue
+      }
     }
   },
   methods: {
@@ -48,7 +54,9 @@ export default {
       'editWorker'
     ]),
     handleUpd () {
-      const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
+      const splitFullName = { ...this.editedFullname.split(/(\s+)/).filter(function (e) { return e.trim().length > 0 }) }
+      const { firstName, lastName, middleName } = { firstName: splitFullName[1], lastName: splitFullName[0], middleName: splitFullName[2] }
+      const { birthDate, description, id } = this.crntWorker
       const updatedWorker = {
         id,
         lastName,
