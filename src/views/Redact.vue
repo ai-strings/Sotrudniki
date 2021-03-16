@@ -3,6 +3,14 @@
     <div class="container">
       <h1>Редактировать сотрудника</h1>
       <form @submit.prevent="handleUpd" class="vue-add-worker">
+        <p v-if="errors.length">
+        <ul>
+          <li v-for="error in errors" :key="error.id">{{ error }}</li>
+        </ul>
+        </p>
+        <p v-if="submitSuccess === true">
+          Сотрудник успешно отредактирован!
+        </p>
         <label for="" class="vue-input-wr-label"> ФИО сотрудника
           <input type="text" class="vue-input vue-input-lastname" v-model="crntWorkerFullname">
         </label>
@@ -27,6 +35,8 @@ export default {
   },
   data: () => {
     return {
+      errors: [],
+      submitSuccess: false
     }
   },
   directives: {
@@ -41,21 +51,16 @@ export default {
     },
     crntWorkerFullname: {
       get () {
-        return `${this.crntWorker.lastName} ${this.crntWorker.firstName} ${this.crntWorker.middleName}`
+        return [this.crntWorker.lastName, this.crntWorker.firstName, this.crntWorker.middleName].join(' ').trim()
       },
       set (newValue) {
-        if (newValue.indexOf(' ') !== -1) {
-          const splitFullName = {
-            ...newValue.split(/(\s+)/).filter(function (e) {
-              return e.trim().length > 0
-            })
-          }
-          this.crntWorker.lastName = splitFullName[0] ? splitFullName[0] : ''
-          this.crntWorker.firstName = splitFullName[1] ? splitFullName[1] : ''
-          this.crntWorker.middleName = splitFullName[2] ? splitFullName[2] : ''
-        } else {
-          this.crntWorker.middlename = newValue
-        }
+        const splitFullName = newValue.trim().split(' ').filter(function (str) {
+          return /\S/.test(str)
+        })
+        console.log(splitFullName)
+        this.crntWorker.lastName = splitFullName[0] ? splitFullName[0] : ''
+        this.crntWorker.firstName = splitFullName[1] ? splitFullName[1] : ''
+        this.crntWorker.middleName = splitFullName[2] ? splitFullName[2] : ''
       }
     }
   },
@@ -65,7 +70,7 @@ export default {
       'editWorker'
     ]),
     handleUpd () {
-      if (this.formData.fullName.trim().indexOf(' ') !== -1) {
+      if (this.crntWorkerFullname !== '' && this.crntWorkerFullname.trim().indexOf(' ') !== -1 && this.crntWorker.birthDate.length === 10) {
         const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
         const updatedWorker = {
           firstName,
@@ -76,9 +81,26 @@ export default {
           id
         }
         this.editWorker(updatedWorker)
-        this.error = ''
+        this.errors = []
+        this.submitSuccess = true
+
+        this.crntWorkerFullname = ''
+        this.crntWorker.birthDate = ''
+        this.crntWorker.description = ''
+        setTimeout(() => { this.$router.push({ path: '/' }) }, 3500)
       } else {
-        this.error = 'Требуется указать хотя бы имя и фамилию.'
+        if ((this.crntWorkerFullname === '' || this.crntWorkerFullname.trim().indexOf(' ') === -1) && (this.crntWorker.birthDate.length < 10)) {
+          this.errors.push('Требуется указать хотя бы имя и фамилию.')
+          this.errors.push('Введите дату в формате: год-мм-дд')
+          setTimeout(() => { this.errors = [] }, 4000)
+        } else if (this.crntWorkerFullname === '' || this.crntWorkerFullname.trim().indexOf(' ') === -1) {
+          this.errors.push('Требуется указать хотя бы имя и фамилию.')
+          setTimeout(() => { this.errors = [] }, 4000)
+        } else if (this.crntWorker.birthDate.length < 10) {
+          console.log(this.crntWorker.birthDate.length < 10)
+          this.errors.push('Введите дату в формате: год-мм-дд')
+          setTimeout(() => { this.errors = [] }, 4000)
+        }
       }
     }
   },

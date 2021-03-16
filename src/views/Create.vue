@@ -8,6 +8,9 @@
           <li v-for="error in errors" :key="error.id">{{ error }}</li>
         </ul>
         </p>
+        <p v-if="submitSuccess === true">
+          Сотрудник успешно добавлен!
+        </p>
         <label for="" class="vue-input-wr-label"> ФИО сотрудника
           <input placeholder="Иванов Иван Иванович" type="text" class="vue-input vue-input-fullname" v-model="formData.fullName">
         </label>
@@ -38,7 +41,8 @@ export default {
         fullName: '',
         birthDate: '',
         description: ''
-      }
+      },
+      submitSuccess: false
     }
   },
   directives: {
@@ -71,7 +75,9 @@ export default {
           birthDate: '',
           description: ''
         }
+        this.submitSuccess = true
         this.errors = []
+        setTimeout(() => { this.$router.push({ path: '/' }) }, 3500)
       } else {
         if ((this.formData.fullName === '' || this.formData.fullName.trim().indexOf(' ') === -1) && (this.formData.birthDate.length < 10)) {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
