@@ -4,10 +4,10 @@
     <h1>Добавить сотрудника</h1>
       <form @submit.prevent="handleSubmit" class="vue-add-worker">
         <label for="" class="vue-input-wr-label"> ФИО сотрудника
-          <input placeholder="Иванов" type="text" class="vue-input vue-input-fullname" v-model="formData.fullName">
+          <input placeholder="Иванов Иван Иванович" type="text" class="vue-input vue-input-fullname" v-model="formData.fullName">
         </label>
         <label for="" class="vue-input-wr-label"> Дата рождения сотрудника
-          <input placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="formData.birthDate">
+          <input v-mask="'####-##-##'" placeholder="1980-12-15" type="tel" class="vue-input vue-input-birthdate" v-model="formData.birthDate">
         </label>
         <label for="" class="vue-input-wr-label"> Описание сотрудника
           <textarea type="text" class="vue-textarea vue-input-description" v-model="formData.description"></textarea>
@@ -20,6 +20,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { mask } from 'vue-the-mask'
 export default {
   name: 'create',
   components: {
@@ -32,6 +33,9 @@ export default {
         description: ''
       }
     }
+  },
+  directives: {
+    mask
   },
   computed: {
 
@@ -46,8 +50,8 @@ export default {
       const { birthDate, description } = this.formData
       const payload = {
         worker: {
-          lastName,
           firstName,
+          lastName,
           middleName,
           birthDate,
           description
