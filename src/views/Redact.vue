@@ -3,14 +3,22 @@
     <div class="container">
       <h1>Редактировать сотрудника</h1>
       <form @submit.prevent="handleUpd" class="vue-add-worker">
+        <p v-if="errors.length">
+        <ul>
+          <li v-for="error in errors" :key="error.id">{{ error }}</li>
+        </ul>
+        </p>
+        <p v-if="submitSuccess === true">
+          Сотрудник успешно отредактирован!
+        </p>
         <label for="" class="vue-input-wr-label"> ФИО сотрудника
-          <input type="text" class="vue-input vue-input-lastname" v-model="editedFullname">
+          <input type="text" class="vue-input vue-input-lastname" v-model="crntWorkerFullname">
         </label>
         <label for="" class="vue-input-wr-label"> Дата рождения сотрудника
-          <input placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="crntWorker.birthDate">
+          <input v-mask="'####-##-##'" placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="crntWorker.birthDate">
         </label>
         <label for="" class="vue-input-wr-label"> Описание сотрудника
-          <textarea type="text" class="vue-textarea vue-input-description" v-model="crntWorker.description"></textarea>
+          <textarea type="text" class="vue-textarea vue-input-description" maxlength="100" v-model="crntWorker.description"></textarea>
         </label>
         <input type="submit" class="vue-add-worker-sbmt">
       </form>
@@ -20,14 +28,19 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { mask } from 'vue-the-mask'
 export default {
   name: 'create',
   components: {
   },
   data: () => {
     return {
-      editedFullname: ''
+      errors: [],
+      submitSuccess: false
     }
+  },
+  directives: {
+    mask
   },
   computed: {
     ...mapGetters([
@@ -38,13 +51,16 @@ export default {
     },
     crntWorkerFullname: {
       get () {
-        const crntWrkrFnameObj = this.crntWorker
-        const index = Object.values(crntWrkrFnameObj).indexOf(this.crntWorker.lastName)
-        console.log(index)
-        return Object.values(crntWrkrFnameObj).splice(index, 3).join(' ')
+        return [this.crntWorker.lastName, this.crntWorker.firstName, this.crntWorker.middleName].join(' ').trim()
       },
       set (newValue) {
-        this.editedFullname = newValue
+        const splitFullName = newValue.trim().split(' ').filter(function (str) {
+          return /\S/.test(str)
+        })
+        console.log(splitFullName)
+        this.crntWorker.lastName = splitFullName[0] ? splitFullName[0] : ''
+        this.crntWorker.firstName = splitFullName[1] ? splitFullName[1] : ''
+        this.crntWorker.middleName = splitFullName[2] ? splitFullName[2] : ''
       }
     }
   },
@@ -54,19 +70,41 @@ export default {
       'editWorker'
     ]),
     handleUpd () {
-      const splitFullName = { ...this.editedFullname.split(/(\s+)/).filter(function (e) { return e.trim().length > 0 }) }
-      const { firstName, lastName, middleName } = { firstName: splitFullName[1], lastName: splitFullName[0], middleName: splitFullName[2] }
-      const { birthDate, description, id } = this.crntWorker
-      const updatedWorker = {
-        id,
-        lastName,
-        firstName,
-        middleName,
-        birthDate,
-        description
+      if (this.crntWorkerFullname !== '' && this.crntWorkerFullname.trim().indexOf(' ') !== -1 && this.crntWorker.birthDate.length === 10) {
+        const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
+        const updatedWorker = {
+          firstName,
+          lastName,
+          middleName,
+          birthDate,
+          description,
+          id
+        }
+        this.editWorker(updatedWorker)
+        this.errors = []
+        this.submitSuccess = true
+
+        this.crntWorkerFullname = ''
+        this.crntWorker.birthDate = ''
+        this.crntWorker.description = ''
+        setTimeout(() => { this.$router.push({ path: '/' }) }, 3500)
+      } else {
+        if ((this.crntWorkerFullname === '' || this.crntWorkerFullname.trim().indexOf(' ') === -1) && (this.crntWorker.birthDate.length < 10)) {
+          this.errors.push('Требуется указать хотя бы имя и фамилию.')
+          this.errors.push('Введите дату в формате: год-мм-дд')
+          setTimeout(() => { this.errors = [] }, 4000)
+        } else if (this.crntWorkerFullname === '' || this.crntWorkerFullname.trim().indexOf(' ') === -1) {
+          this.errors.push('Требуется указать хотя бы имя и фамилию.')
+          setTimeout(() => { this.errors = [] }, 4000)
+        } else if (this.crntWorker.birthDate.length < 10) {
+          console.log(this.crntWorker.birthDate.length < 10)
+          this.errors.push('Введите дату в формате: год-мм-дд')
+          setTimeout(() => { this.errors = [] }, 4000)
+        }
       }
-      this.editWorker(updatedWorker)
     }
+  },
+  created () {
   },
   mounted () {
     this.getSingleWorker(this.$route.query.wid)

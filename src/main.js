@@ -22,7 +22,7 @@ const store = createStore({
     //     })
     // },
     getPaginatedWorkers ({ commit }, pageNum) {
-      return axios('http://localhost:3000/workers?_page=' + pageNum, {
+      return axios('http://localhost:3000/workers?_sort=id&_order=desc&_page=' + pageNum, {
         method: 'GET'
       })
         .then((response) => {
@@ -34,7 +34,7 @@ const store = createStore({
     addWorker ({ commit }, payload) {
       axios.post('http://localhost:3000/workers', payload.worker)
         .then((response) => {
-          commit('newWorker', response.data)
+          // commit('newWorker', response.data)
           console.log(response.data)
         })
         .catch(error => {
@@ -82,9 +82,9 @@ const store = createStore({
     setPaginatedWorkers: (state, paginatedWorkers) => {
       state.paginatedWorkers = paginatedWorkers
     },
-    newWorker: (state, worker) => {
-      state.workers.unshift(worker)
-    },
+    // newWorker: (state, worker) => {
+    //   state.workers.unshift(worker)
+    // },
     setSingleWorker: (state, singleWorker) => {
       state.singleWorker = singleWorker
     },
