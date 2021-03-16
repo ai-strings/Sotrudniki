@@ -65,16 +65,21 @@ export default {
       'editWorker'
     ]),
     handleUpd () {
-      const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
-      const updatedWorker = {
-        firstName,
-        lastName,
-        middleName,
-        birthDate,
-        description,
-        id
+      if (this.formData.fullName.trim().indexOf(' ') !== -1) {
+        const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
+        const updatedWorker = {
+          firstName,
+          lastName,
+          middleName,
+          birthDate,
+          description,
+          id
+        }
+        this.editWorker(updatedWorker)
+        this.error = ''
+      } else {
+        this.error = 'Требуется указать хотя бы имя и фамилию.'
       }
-      this.editWorker(updatedWorker)
     }
   },
   created () {
