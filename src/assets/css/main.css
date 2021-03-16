@@ -17,6 +17,9 @@ h1, h2 {
 h1 {
     font-size: 25px;
 }
+ul {
+    list-style: none;
+}
 .container {
     width: 1200px;
     margin: 0 auto;
@@ -67,15 +70,25 @@ h1 {
     background: #4FC3A1;
 }
 .vue-input {
+    font-family: Helvetica;
     width: 550px;
     height: 35px;
     padding: 0px 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.vue-input::placeholder {
+    color: #9e9e9e85
 }
 .vue-textarea {
+    font-family: Helvetica;
     width: 550px;
     height: 100px;
     padding: 10px 5px;
     resize: none;
+    font-weight: 600;
+    font-size: 14px;
+
 }
 .vue-input:focus, .vue-textarea:focus {
     outline: none;
@@ -84,13 +97,7 @@ h1 {
 .vue-input {
     width: 550px;
     height: 35px;
-    padding: 0px 5px;
-}
-.vue-textarea {
-    width: 550px;
-    height: 100px;
-    padding: 10px 5px;
-    resize: none;
+    padding: 0px 10px;
 }
 .vue-input:focus, .vue-textarea:focus {
     outline: none;
@@ -213,6 +220,9 @@ h1 {
     border: none;
     color: white;
 }
+.btn:hover {
+    cursor: pointer;
+}
 .btn.btn-add-worker {
     position: absolute;
     top: -40px;
@@ -254,6 +264,26 @@ h1 {
 }
 .prev-page {
     margin-right: 5px;
+}
+.btn-controls {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+.btn-controls .btn:focus {
+    background: #496a8c;
+    outline: none;
+}
+.text-errors > ul > li, .text-success {
+    text-align: center;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    padding: 30px 0;
+}
+.vue-input.vue-input-birthdate {
+    text-transform: uppercase;
 }
 /* Responsive */
 

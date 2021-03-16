@@ -3,25 +3,25 @@
     <div class="container">
       <h1>Редактировать сотрудника</h1>
       <form @submit.prevent="handleUpd" class="vue-add-worker">
-        <p v-if="errors.length">
-        <ul>
-          <li v-for="error in errors" :key="error.id">{{ error }}</li>
-        </ul>
-        </p>
-        <p v-if="submitSuccess === true">
-          Сотрудник успешно отредактирован!
-        </p>
-        <label for="" class="vue-input-wr-label"> ФИО сотрудника
-          <input type="text" class="vue-input vue-input-lastname" v-model="crntWorkerFullname">
-        </label>
-        <label for="" class="vue-input-wr-label"> Дата рождения сотрудника
-          <input v-mask="'####-##-##'" placeholder="1980-12-15" type="text" class="vue-input vue-input-birthdate" v-model="crntWorker.birthDate">
-        </label>
-        <label for="" class="vue-input-wr-label"> Описание сотрудника
+        <label for="" class="vue-input-wr-label"> ФИО сотрудника </label>
+          <input type="text" class="vue-input vue-input-lastname" placeholder="Иванов Иван Иванович" v-model="crntWorkerFullname">
+        <label for="" class="vue-input-wr-label"> Дата рождения сотрудника </label>
+          <input v-mask="'####-##-##'" placeholder="год-мм-дд" type="text" class="vue-input vue-input-birthdate" v-model="crntWorker.birthDate">
+        <label for="" class="vue-input-wr-label"> Описание сотрудника </label>
           <textarea type="text" class="vue-textarea vue-input-description" maxlength="100" v-model="crntWorker.description"></textarea>
-        </label>
-        <input type="submit" class="vue-add-worker-sbmt">
+        <div class="btn-controls">
+          <button type="submit" class="btn vue-edit-worker-sbmt"> Сохранить </button>
+          <button @click="$router.push('/')" class="btn vue-add-worker-sbmt"> Отменить </button>
+        </div>
       </form>
+      <p сlass="text-errors" v-if="errors.length">
+      <ul>
+        <li v-for="error in errors" :key="error.id">{{ error }}</li>
+      </ul>
+      </p>
+      <p сlass="text-success" v-if="submitSuccess === true">
+        Сотрудник успешно отредактирован!
+      </p>
     </div>
   </div>
 </template>
