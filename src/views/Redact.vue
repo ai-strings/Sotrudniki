@@ -70,6 +70,7 @@ export default {
   },
   mounted () {
     this.getSingleWorker(this.$route.query.wid)
+    this.editedFullname = this.crntWorkerFullname
   }
 }
 </script>

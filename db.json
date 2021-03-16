@@ -556,19 +556,19 @@
     },
     {
       "lastName": "Пипиркин",
-      "firstName": "Петя",
-      "middleName": "Петрович",
-      "birthDate": "1980-10-04",
-      "description": "ЫАлыалыфалыфлаыфлаылфалыфаыа",
-      "id": "PRlK8KS"
-    },
-    {
-      "lastName": "Пипиркин",
       "firstName": "Пётр",
       "middleName": "Петрович",
       "birthDate": "1920-12-11",
       "description": "выафыафыафыаы",
       "id": "LgQ3H2C"
+    },
+    {
+      "lastName": "Рустиков",
+      "firstName": "Рустик",
+      "middleName": "Рустикович",
+      "birthDate": "1990-12-15",
+      "description": "ОЧень любит сыр, макароны, капусту, чай с капустой, но не красный",
+      "id": "YZaLIcM"
     }
   ]
 }
