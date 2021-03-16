@@ -1,43 +1,50 @@
 <template>
-  <div class="vueTable">
-    <div class="vueTable-header">
-      <span> Фамилия </span>
-      <span> Имя </span>
-      <span> Отчество </span>
-      <span> Дата Рождения </span>
-      <span> Описание </span>
-      <span> Действия </span>
-    </div>
-    <div class="vueTable-body">
-      <vueTableRow
-        v-for="row in paginatedWorkersData"
-        :key="row.id"
-        :rowData = "row"
-        :load="log(row)"
-      />
-    </div>
-    <div class="vueTable-pagination">
-      <a href="" class="prev-page"
-         @click.prevent="pageGo(prevPage())"
-      > prev </a>
-      <div class="page"
-           v-for="page in pages"
-           :key="page"
-           :class="{'page-active': page === pageNumber}"
-           @click="pageGo(page)"
-      > {{page}} </div>
-      <a href="" class="next-page" @click.prevent="pageGo(nextPage())"> next </a>
-    </div>
+  <div class="table-wrapper">
+    <table class="vueTable fl-table">
+      <thead>
+        <tr class="vueTable-header">
+          <th class="column1"> Фамилия </th>
+          <th class="column2"> Имя </th>
+          <th class="column3"> Отчество </th>
+          <th class="column4"> Дата Рождения </th>
+          <th class="column5"> Описание </th>
+          <th class="column6"> Действия </th>
+        </tr>
+      </thead>
+      <tbody class="vueTable-body">
+        <vueTableRow
+          v-for="row in paginatedWorkersData"
+          :key="row.id"
+          :rowData = "row"
+          :load="log(row)"
+        />
+      </tbody>
+    </table>
+  </div>
+  <div class="vueTable-pagination">
+    <a href="" class="prev-page"
+       @click.prevent="pageGo(prevPage())"
+    > <icon name="chev-left"></icon> </a>
+    <div class="page"
+         v-for="page in pages"
+         :key="page"
+         :class="{'page-active': page === pageNumber}"
+         @click="pageGo(page)"
+    > {{page}} </div>
+    <a href="" class="next-page" @click.prevent="pageGo(nextPage())"> <icon name="chev-right"></icon> </a>
   </div>
 </template>
 
 <script>
 import vueTableRow from '@/components/tables/vue-table-row'
 import { mapActions, mapGetters } from 'vuex'
+import Icon from '@/components/icons/icons'
+
 export default {
   name: 'vue-table',
   components: {
-    vueTableRow
+    vueTableRow,
+    Icon
   },
   props: {
     workersData: {

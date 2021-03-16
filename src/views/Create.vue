@@ -11,17 +11,15 @@
         <p v-if="submitSuccess === true">
           Сотрудник успешно добавлен!
         </p>
-        <label for="" class="vue-input-wr-label"> ФИО сотрудника
+        <label for="" class="vue-input-wr-label"> ФИО сотрудника </label>
           <input placeholder="Иванов Иван Иванович" type="text" class="vue-input vue-input-fullname" v-model="formData.fullName">
-        </label>
-        <label for="" class="vue-input-wr-label"> Дата рождения сотрудника
+        <label for="" class="vue-input-wr-label"> Дата рождения сотрудника </label>
           <input v-mask="'####-##-##'" placeholder="1980-12-15" type="tel" class="vue-input vue-input-birthdate" v-model="formData.birthDate">
-        </label>
-        <label for="" class="vue-input-wr-label"> Описание сотрудника
+        <label for="" class="vue-input-wr-label"> Описание сотрудника </label>
           <textarea type="text" class="vue-textarea vue-input-description" maxlength="100"  v-model="formData.description"></textarea>
-        </label>
-        <button @submit="checkFullname" type="submit" class="vue-add-worker-sbmt"> Сохранить </button>
-        <a href='/' type="button" class="vue-add-worker-sbmt"> Отменить </a>
+
+        <button @submit="checkFullname" type="submit" class="btn vue-add-worker-sbmt"> Сохранить </button>
+        <button @click="$router.push('/')" class="btn vue-add-worker-sbmt"> Отменить </button>
       </form>
     </div>
   </div>

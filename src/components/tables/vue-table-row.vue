@@ -1,19 +1,19 @@
 <template>
-<div class="vue-table-row">
-  <div class="vtr-row row-lastname"> {{rowData.lastName}} </div>
-  <div class="vtr-row row-firstname"> {{rowData.firstName}} </div>
-  <div class="vtr-row row-middlename"> {{rowData.middleName}} </div>
-  <div class="vtr-row row-bdate"> {{rowData.birthDate}} </div>
-  <div class="vtr-row row-desc"> {{rowData.description}} </div>
-  <div class="vtr-row row-actions">
+<tr class="vue-table-row">
+  <td class="column1 vtr-row row-lastname"> {{rowData.lastName}} </td>
+  <td class="column2 vtr-row row-firstname"> {{rowData.firstName}} </td>
+  <td class="column3 vtr-row row-middlename"> {{rowData.middleName}} </td>
+  <td class="column4 vtr-row row-bdate"> {{rowData.birthDate}} </td>
+  <td class="column5 vtr-row row-desc"> {{rowData.description}} </td>
+  <td class="column6 vtr-row row-actions">
       <button @click="selectWorker(rowData), redirectForEdit()"  class="btn-edit">
         <icon name="edit"></icon>
       </button>
       <button @click="selectWorker(rowData), deleteWorker()" class="btn-del">
         <icon name="trash"></icon>
       </button>
-  </div>
-</div>
+  </td>
+</tr>
 </template>
 
 <script>
