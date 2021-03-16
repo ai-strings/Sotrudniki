@@ -94,33 +94,5 @@ export default {
 </script>
 
 <style>
-  .vueTable {
-    margin-top: 60px;
-  }
-  .vueTable-header {
-    display: flex;
-    justify-content: space-around;
-  }
-  .vueTable-header span{
-    flex-basis: 16.6%;
-    padding: 10px 0;
-  }
-  .vueTable-pagination {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 25px;
-  }
-  .page {
-    padding: 8px;
-    margin-right: 5px;
-    border: 2px solid grey;
-  }
-  .page:hover {
-    background: blue;
-    cursor: pointer;
-  }
-  .page-active {
-    background: yellow;
-  }
+
 </style>

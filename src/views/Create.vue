@@ -99,32 +99,5 @@ export default {
 }
 </script>
 <style>
-  .vue-add-worker {
-    display: flex;
-    flex-direction: column;
-  }
-  .vue-input-wr-label {
-    margin: 15px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-  }
-  .vue-input {
-    width: 300px;
-    height: 35px;
-    padding: 0px 5px;
-  }
-  .vue-textarea {
-    width: 300px;
-    height: 100px;
-    padding: 10px 5px;
-    resize: none;
-  }
-  .vue-input:focus, .vue-textarea:focus {
-    outline: none;
-  }
-  .vue-add-worker-sbmt {
-    width: 200px;
-    height: 35px;
-  }
+
 </style>

@@ -61,42 +61,5 @@ export default {
 </script>
 
 <style>
-  .vue-table-row {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    /*align-items: center;*/
-    border-top: 2px solid #bdbdbd;
-    border-left: 2px solid #bdbdbd;
-    border-right: 1px solid #bdbdbd;
-  }
-  .vue-table-row:last-child {
-    border-bottom: 1px solid #bdbdbd;
-  }
-  .vue-table-row .vtr-row {
-    flex-basis: 16.6%;
-    padding: 10px 5px;
-    border-right: 1px solid #bdbdbd;
-    text-align: center;
-  }
-  .vue-table-row:nth-child(odd) {
-    background: #fbfbfb;
-  }
-  .vue-table-row:nth-child(even) {
-    background: #eaeaea;
-  }
-  .vtr-row.row-actions {
-    display: flex;
-    justify-content: space-around;
-  }
-  .btn-edit, .btn-del {
-    width: 35px;
-    height: 35px;
-    background: #9696a0;
-  }
-  .btn-edit svg, .btn-del svg {
-    width: 21px;
-    height: 21px;
-    fill: white;
-  }
+
 </style>
