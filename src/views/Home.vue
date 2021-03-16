@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <div class="container">
+      <div class="btn-add-worker">
+        <button @click="$router.push('create')"> Добавить сотрудника </button>
+      </div>
       <vue-table
         :paginatedWorkersData = "paginatedWorkersList"
       />
