@@ -51,7 +51,7 @@ export default {
     },
     redirectForEdit () {
       const self = this
-      self.$router.push('/redact' + '?wid=' + this.currentWorker.id)
+      self.$router.push('/redact' + '?wid=' + this.currentWorker.id + '&pid=' + this.currentPage)
     },
     deleteWorker () {
       const workerToDelete = this.currentWorker

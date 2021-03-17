@@ -11,7 +11,7 @@
           <textarea placeholder="Макс. 100 символов" type="text" class="vue-textarea vue-input-description" maxlength="100" v-model="getWorker.description"></textarea>
         <div class="btn-controls">
           <button type="submit" class="btn vue-edit-worker-sbmt"> Сохранить </button>
-          <button @click="$router.push('/')" class="btn vue-add-worker-sbmt"> Отменить </button>
+          <button @click="$router.push('/' + '?pid=' + this.$route.query.pid)" class="btn vue-add-worker-sbmt"> Отменить </button>
         </div>
       </form>
       <div class="messages">

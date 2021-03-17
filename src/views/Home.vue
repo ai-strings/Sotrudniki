@@ -37,7 +37,11 @@ export default {
   },
   mounted () {
     // this.getWorkers()
-    this.getPaginatedWorkers(1)
+    if (!this.$route.query.pid) {
+      this.getPaginatedWorkers(1)
+    } else {
+      this.getPaginatedWorkers(this.$route.query.pid)
+    }
   }
 }
 </script>

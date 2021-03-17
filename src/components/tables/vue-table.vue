@@ -62,7 +62,7 @@ export default {
   },
   data () {
     return {
-      pageNumber: 1,
+      pageNumber: null,
       pageArrowNum: 1
     }
   },
@@ -95,6 +95,13 @@ export default {
     ]),
     pages () {
       return Math.ceil(this.getWorkersCount / 10)
+    }
+  },
+  mounted () {
+    if (!this.$route.query.pid) {
+      this.pageNumber = 1
+    } else {
+      this.pageNumber = !this.$route.query.pid
     }
   }
 }
