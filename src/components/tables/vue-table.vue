@@ -16,7 +16,6 @@
           v-for="row in paginatedWorkersData"
           :key="row.id"
           :rowData = "row"
-          :load="log(row)"
         />
       </tbody>
     </table>
@@ -70,9 +69,9 @@ export default {
     ...mapActions([
       'getPaginatedWorkers'
     ]),
-    log (item) {
-      console.log(item)
-    },
+    // log (item) {
+    //   console.log(item)
+    // },
     pageGo (page) {
       this.pageNumber = page
       const pageNum = this.pageNumber
