@@ -13,6 +13,7 @@
       </thead>
       <tbody class="vueTable-body">
         <vueTableRow
+          :currentPage = "pageNumber"
           v-for="row in paginatedWorkersData"
           :key="row.id"
           :rowData = "row"

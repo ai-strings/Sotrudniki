@@ -27,6 +27,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    currentPage: {
+      type: Number,
+      default: null
     }
   },
   data () {
@@ -38,7 +42,8 @@ export default {
   computed: {},
   methods: {
     ...mapActions([
-      'delWorker'
+      'delWorker',
+      'getPaginatedWorkers'
     ]),
     selectWorker (rowData) {
       this.currentWorker = rowData
@@ -53,6 +58,10 @@ export default {
       const msg = confirm('Запись будет удалена. Уверены?')
       if (msg) {
         this.delWorker(workerToDelete)
+        // console.log(this.currentPage)
+        setTimeout(() => {
+          this.getPaginatedWorkers(this.currentPage)
+        }, 400)
       }
     }
 
