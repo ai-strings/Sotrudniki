@@ -71,14 +71,14 @@ export default {
     ]),
     handleUpd () {
       if (this.crntWorkerFullname !== '' && this.crntWorkerFullname.trim().indexOf(' ') !== -1 && this.crntWorker.birthDate.length === 10) {
-        const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
+        const { firstName, lastName, middleName, birthDate, description, _id } = this.crntWorker
         const updatedWorker = {
           firstName,
           lastName,
           middleName,
           birthDate,
           description,
-          id
+          _id
         }
         this.editWorker(updatedWorker)
         this.errors = []

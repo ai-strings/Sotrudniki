@@ -37,7 +37,7 @@ export default {
   },
   mounted () {
     // this.getWorkers()
-    this.getPaginatedWorkers(1)
+    this.getPaginatedWorkers(0)
   }
 }
 </script>

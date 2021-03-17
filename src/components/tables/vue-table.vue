@@ -75,8 +75,9 @@ export default {
     },
     pageGo (page) {
       this.pageNumber = page
-      const pageNum = this.pageNumber
-      this.getPaginatedWorkers(pageNum)
+      // const pageNum = this.pageNumber
+      const wPerPage = (this.pageNumber - 1) * 10
+      this.getPaginatedWorkers(wPerPage)
     },
     prevPage () {
       if (this.pageArrowNum > 1) {

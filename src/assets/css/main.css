@@ -293,7 +293,7 @@ ul {
         width: 100%;
     }
     .table-wrapper:before{
-        content: "Scroll horizontally >";
+        content: ">>";
         display: block;
         text-align: right;
         font-size: 11px;
