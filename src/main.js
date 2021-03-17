@@ -22,7 +22,7 @@ const store = createStore({
     //     })
     // },
     getPaginatedWorkers ({ commit }, pageNum) {
-      return axios('http://localhost:3000/workers?_sort=id&_order=desc&_page=' + pageNum, {
+      return axios('http://haemmid.ru:3000/workers?_sort=id&_order=desc&_page=' + pageNum, {
         method: 'GET'
       })
         .then((response) => {
@@ -32,7 +32,7 @@ const store = createStore({
         })
     },
     addWorker ({ commit }, payload) {
-      axios.post('http://localhost:3000/workers', payload.worker)
+      axios.post('http://haemmid.ru:3000/workers', payload.worker)
         .then((response) => {
           // commit('newWorker', response.data)
           console.log(response.data)
@@ -42,7 +42,7 @@ const store = createStore({
         })
     },
     getSingleWorker ({ commit }, wid) {
-      return axios('http://localhost:3000/workers/' + wid, {
+      return axios('http://haemmid.ru:3000/workers/' + wid, {
         method: 'GET'
       })
         .then((response) => {
@@ -51,7 +51,7 @@ const store = createStore({
         })
     },
     editWorker ({ commit }, updatedWorker) {
-      axios.put('http://localhost:3000/workers/' + updatedWorker.id, updatedWorker)
+      axios.put('http://haemmid.ru:3000/workers/' + updatedWorker.id, updatedWorker)
         .then((response) => {
           commit('updWorker', response.data)
           console.log(response.data)
@@ -61,7 +61,7 @@ const store = createStore({
         })
     },
     delWorker ({ commit }, workerToDelete) {
-      axios.delete('http://localhost:3000/workers/' + workerToDelete.id)
+      axios.delete('http://haemmid.ru:3000/workers/' + workerToDelete.id)
         .then((response) => {
           commit('removeWorker', workerToDelete)
           console.log(response.data)

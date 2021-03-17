@@ -14,14 +14,16 @@
           <button @click="$router.push('/')" class="btn vue-add-worker-sbmt"> Отменить </button>
         </div>
       </form>
-      <p сlass="text-errors" v-if="errors.length">
-      <ul>
-        <li v-for="error in errors" :key="error.id">{{ error }}</li>
-      </ul>
-      </p>
-      <p сlass="text-success" v-if="submitSuccess === true">
-        Сотрудник успешно добавлен!
-      </p>
+      <div class="messages">
+        <p сlass="text-errors" v-if="errors.length">
+        <ul>
+          <li v-for="error in errors" :key="error.id">{{ error }}</li>
+        </ul>
+        </p>
+        <p сlass="text-success" v-if="submitSuccess === true">
+          Сотрудник успешно добавлен!
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -55,7 +57,11 @@ export default {
       'addWorker'
     ]),
     handleSubmit () {
-      if (this.formData.fullName !== '' && this.formData.fullName.trim().indexOf(' ') !== -1 && this.formData.birthDate.length === 10) {
+      if (this.formData.fullName !== '' &&
+        this.formData.fullName.trim().indexOf(' ') !== -1 &&
+        (this.formData.birthDate.length === 10 &&
+        parseInt(this.formData.birthDate.substring(5, 7)) <= 12 &&
+        parseInt(this.formData.birthDate.substring(8, 10)) <= 31)) {
         const splitFullName = { ...this.formData.fullName.split(/(\s+)/).filter(function (e) { return e.trim().length > 0 }) }
         const { firstName, lastName, middleName } = { firstName: splitFullName[1], lastName: splitFullName[0], middleName: splitFullName[2] }
         const { birthDate, description } = this.formData
@@ -76,19 +82,29 @@ export default {
         }
         this.submitSuccess = true
         this.errors = []
-        setTimeout(() => { this.$router.push({ path: '/' }) }, 3500)
+        setTimeout(() => { this.$router.push({ path: '/' }) }, 2000)
       } else {
         if ((this.formData.fullName === '' || this.formData.fullName.trim().indexOf(' ') === -1) && (this.formData.birthDate.length < 10)) {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
           this.errors.push('Введите дату в формате: год-мм-дд')
-          setTimeout(() => { this.errors = [] }, 4000)
+          setTimeout(() => { this.errors = [] }, 3000)
         } else if (this.formData.fullName === '' || this.formData.fullName.trim().indexOf(' ') === -1) {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
-          setTimeout(() => { this.errors = [] }, 4000)
+          setTimeout(() => { this.errors = [] }, 3000)
         } else if (this.formData.birthDate.length < 10) {
           console.log(this.formData.birthDate.length < 10)
           this.errors.push('Введите дату в формате: год-мм-дд')
-          setTimeout(() => { this.errors = [] }, 4000)
+          setTimeout(() => { this.errors = [] }, 3000)
+        } else if (parseInt(this.formData.birthDate.substring(5, 7)) > 12) {
+          this.errors.push('В году может быть не более 12 месяцев :)')
+          setTimeout(() => {
+            this.errors = []
+          }, 3000)
+        } else if (parseInt(this.formData.birthDate.substring(8, 10)) > 31) {
+          this.errors.push('В месяце может быть не более 31 дня :)')
+          setTimeout(() => {
+            this.errors = []
+          }, 3000)
         }
       }
     }

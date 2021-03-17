@@ -14,14 +14,16 @@
           <button @click="$router.push('/')" class="btn vue-add-worker-sbmt"> Отменить </button>
         </div>
       </form>
-      <p сlass="text-errors" v-if="errors.length">
-      <ul>
-        <li v-for="error in errors" :key="error.id">{{ error }}</li>
-      </ul>
-      </p>
-      <p сlass="text-success" v-if="submitSuccess === true">
-        Сотрудник успешно отредактирован!
-      </p>
+      <div class="messages">
+        <p сlass="text-errors" v-if="errors.length">
+        <ul>
+          <li v-for="error in errors" :key="error.id">{{ error }}</li>
+        </ul>
+        </p>
+        <p сlass="text-success" v-if="submitSuccess === true">
+          Сотрудник успешно отредактирован!
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -70,7 +72,11 @@ export default {
       'editWorker'
     ]),
     handleUpd () {
-      if (this.crntWorkerFullname !== '' && this.crntWorkerFullname.trim().indexOf(' ') !== -1 && this.crntWorker.birthDate.length === 10) {
+      if ((this.crntWorkerFullname !== '' &&
+        this.crntWorkerFullname.trim().indexOf(' ') !== -1) &&
+        (this.crntWorker.birthDate.length === 10 &&
+        parseInt(this.crntWorker.birthDate.substring(5, 7)) <= 12 &&
+        parseInt(this.crntWorker.birthDate.substring(8, 10)) <= 31)) {
         const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
         const updatedWorker = {
           firstName,
@@ -80,26 +86,38 @@ export default {
           description,
           id
         }
+        console.log(parseInt(this.crntWorker.birthDate.substring(5, 7)))
         this.editWorker(updatedWorker)
         this.errors = []
         this.submitSuccess = true
-
         this.crntWorkerFullname = ''
         this.crntWorker.birthDate = ''
         this.crntWorker.description = ''
-        setTimeout(() => { this.$router.push({ path: '/' }) }, 3500)
+        setTimeout(() => { this.$router.push({ path: '/' }) }, 2000)
       } else {
-        if ((this.crntWorkerFullname === '' || this.crntWorkerFullname.trim().indexOf(' ') === -1) && (this.crntWorker.birthDate.length < 10)) {
+        console.log(parseInt(this.crntWorker.birthDate.substring(8, 10)))
+        if ((this.crntWorkerFullname === '' ||
+          this.crntWorkerFullname.trim().indexOf(' ') === -1) && (this.crntWorker.birthDate.length < 10)) {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
           this.errors.push('Введите дату в формате: год-мм-дд')
-          setTimeout(() => { this.errors = [] }, 4000)
+          setTimeout(() => { this.errors = [] }, 3000)
         } else if (this.crntWorkerFullname === '' || this.crntWorkerFullname.trim().indexOf(' ') === -1) {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
-          setTimeout(() => { this.errors = [] }, 4000)
+          setTimeout(() => { this.errors = [] }, 3000)
         } else if (this.crntWorker.birthDate.length < 10) {
           console.log(this.crntWorker.birthDate.length < 10)
           this.errors.push('Введите дату в формате: год-мм-дд')
-          setTimeout(() => { this.errors = [] }, 4000)
+          setTimeout(() => { this.errors = [] }, 3000)
+        } else if (parseInt(this.crntWorker.birthDate.substring(5, 7)) > 12) {
+          this.errors.push('В году может быть не более 12 месяцев :)')
+          setTimeout(() => {
+            this.errors = []
+          }, 3000)
+        } else if (parseInt(this.crntWorker.birthDate.substring(8, 10)) > 31) {
+          this.errors.push('В месяце может быть не более 31 дня :)')
+          setTimeout(() => {
+            this.errors = []
+          }, 3000)
         }
       }
     }
