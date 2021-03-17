@@ -92,7 +92,7 @@ export default {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
           setTimeout(() => { this.errors = [] }, 3000)
         } else if (this.formData.birthDate.length < 10) {
-          console.log(this.formData.birthDate.length < 10)
+          // console.log(this.formData.birthDate.length < 10)
           this.errors.push('Введите дату в формате: год-мм-дд')
           setTimeout(() => { this.errors = [] }, 3000)
         } else if (parseInt(this.formData.birthDate.substring(5, 7)) > 12) {

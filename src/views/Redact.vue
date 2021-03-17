@@ -86,7 +86,7 @@ export default {
           description,
           id
         }
-        console.log(parseInt(this.crntWorker.birthDate.substring(5, 7)))
+        // console.log(parseInt(this.crntWorker.birthDate.substring(5, 7)))
         this.editWorker(updatedWorker)
         this.errors = []
         this.submitSuccess = true
@@ -95,7 +95,7 @@ export default {
         this.crntWorker.description = ''
         setTimeout(() => { this.$router.push({ path: '/' }) }, 2000)
       } else {
-        console.log(parseInt(this.crntWorker.birthDate.substring(8, 10)))
+        // console.log(parseInt(this.crntWorker.birthDate.substring(8, 10)))
         if ((this.crntWorkerFullname === '' ||
           this.crntWorkerFullname.trim().indexOf(' ') === -1) && (this.crntWorker.birthDate.length < 10)) {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
@@ -105,7 +105,7 @@ export default {
           this.errors.push('Требуется указать хотя бы имя и фамилию.')
           setTimeout(() => { this.errors = [] }, 3000)
         } else if (this.crntWorker.birthDate.length < 10) {
-          console.log(this.crntWorker.birthDate.length < 10)
+          // console.log(this.crntWorker.birthDate.length < 10)
           this.errors.push('Введите дату в формате: год-мм-дд')
           setTimeout(() => { this.errors = [] }, 3000)
         } else if (parseInt(this.crntWorker.birthDate.substring(5, 7)) > 12) {

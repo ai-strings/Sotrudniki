@@ -22,49 +22,49 @@ const store = createStore({
     //     })
     // },
     getPaginatedWorkers ({ commit }, pageNum) {
-      return axios('http://haemmid.ru:3000/workers?_sort=id&_order=desc&_page=' + pageNum, {
+      return axios('https://haemmid.ru/rest/workers?_sort=id&_order=desc&_page=' + pageNum, {
         method: 'GET'
       })
         .then((response) => {
-          console.log(response.headers['x-total-count'])
+          // console.log(response.headers['x-total-count'])
           commit('setPaginatedWorkers', response.data)
           commit('setWorkersCount', response.headers['x-total-count'])
         })
     },
     addWorker ({ commit }, payload) {
-      axios.post('http://haemmid.ru:3000/workers', payload.worker)
+      axios.post('https://haemmid.ru/rest/workers', payload.worker)
         .then((response) => {
           // commit('newWorker', response.data)
-          console.log(response.data)
+          // console.log(response.data)
         })
         .catch(error => {
           console.log(error)
         })
     },
     getSingleWorker ({ commit }, wid) {
-      return axios('http://haemmid.ru:3000/workers/' + wid, {
+      return axios('https://haemmid.ru/rest/workers/' + wid, {
         method: 'GET'
       })
         .then((response) => {
-          console.log(response.data)
+          // console.log(response.data)
           commit('setSingleWorker', response.data)
         })
     },
     editWorker ({ commit }, updatedWorker) {
-      axios.put('http://haemmid.ru:3000/workers/' + updatedWorker.id, updatedWorker)
+      axios.put('https://haemmid.ru/rest/workers/' + updatedWorker.id, updatedWorker)
         .then((response) => {
           commit('updWorker', response.data)
-          console.log(response.data)
+          // console.log(response.data)
         })
         .catch(error => {
           console.log(error)
         })
     },
     delWorker ({ commit }, workerToDelete) {
-      axios.delete('http://haemmid.ru:3000/workers/' + workerToDelete.id)
+      axios.delete('https://haemmid.ru/rest/workers/' + workerToDelete.id)
         .then((response) => {
           commit('removeWorker', workerToDelete)
-          console.log(response.data)
+          // console.log(response.data)
         })
         .catch(error => {
           console.log(error)
