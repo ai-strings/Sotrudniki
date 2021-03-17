@@ -6,9 +6,9 @@
         <label for="" class="vue-input-wr-label"> ФИО сотрудника </label>
           <input type="text" class="vue-input vue-input-lastname" placeholder="Иванов Иван Иванович" v-model="crntWorkerFullname">
         <label for="" class="vue-input-wr-label"> Дата рождения сотрудника </label>
-          <input v-mask="'####-##-##'" placeholder="год-мм-дд" type="text" class="vue-input vue-input-birthdate" v-model="crntWorker.birthDate">
+          <input v-mask="'##-##-####'" placeholder="дд-мм-год" type="text" class="vue-input vue-input-birthdate" v-model="crntWorker.birthDate">
         <label for="" class="vue-input-wr-label"> Описание сотрудника </label>
-          <textarea type="text" class="vue-textarea vue-input-description" maxlength="100" v-model="crntWorker.description"></textarea>
+          <textarea placeholder="Макс. 100 символов" type="text" class="vue-textarea vue-input-description" maxlength="100" v-model="crntWorker.description"></textarea>
         <div class="btn-controls">
           <button type="submit" class="btn vue-edit-worker-sbmt"> Сохранить </button>
           <button @click="$router.push('/')" class="btn vue-add-worker-sbmt"> Отменить </button>
@@ -59,10 +59,20 @@ export default {
         const splitFullName = newValue.trim().split(' ').filter(function (str) {
           return /\S/.test(str)
         })
-        console.log(splitFullName)
+        // console.log(splitFullName)
         this.crntWorker.lastName = splitFullName[0] ? splitFullName[0] : ''
         this.crntWorker.firstName = splitFullName[1] ? splitFullName[1] : ''
         this.crntWorker.middleName = splitFullName[2] ? splitFullName[2] : ''
+      }
+    },
+    crntWorkerBirthD: {
+      get () {
+        return this.crntWorker.birthDate.trim().split('-').reverse().join('-')
+      },
+      set (newVal) {
+        const splitBdate = newVal.trim().split('-').reverse().join('-')
+        console.log(splitBdate)
+        this.crntWorker.birthDate = splitBdate
       }
     }
   },
@@ -75,9 +85,10 @@ export default {
       if ((this.crntWorkerFullname !== '' &&
         this.crntWorkerFullname.trim().indexOf(' ') !== -1) &&
         (this.crntWorker.birthDate.length === 10 &&
-        parseInt(this.crntWorker.birthDate.substring(5, 7)) <= 12 &&
-        parseInt(this.crntWorker.birthDate.substring(8, 10)) <= 31)) {
-        const { firstName, lastName, middleName, birthDate, description, id } = this.crntWorker
+        parseInt(this.crntWorker.birthDate.substring(3, 5)) <= 12 &&
+        parseInt(this.crntWorker.birthDate.substring(0, 2)) <= 31)) {
+        const { firstName, lastName, middleName, description, id } = this.crntWorker
+        const birthDate = this.crntWorker.birthDate.trim().split('-').reverse().join('-')
         const updatedWorker = {
           firstName,
           lastName,
@@ -108,12 +119,12 @@ export default {
           // console.log(this.crntWorker.birthDate.length < 10)
           this.errors.push('Введите дату в формате: год-мм-дд')
           setTimeout(() => { this.errors = [] }, 3000)
-        } else if (parseInt(this.crntWorker.birthDate.substring(5, 7)) > 12) {
+        } else if (parseInt(this.crntWorker.birthDate.substring(3, 5)) > 12) {
           this.errors.push('В году может быть не более 12 месяцев :)')
           setTimeout(() => {
             this.errors = []
           }, 3000)
-        } else if (parseInt(this.crntWorker.birthDate.substring(8, 10)) > 31) {
+        } else if (parseInt(this.crntWorker.birthDate.substring(0, 2)) > 31) {
           this.errors.push('В месяце может быть не более 31 дня :)')
           setTimeout(() => {
             this.errors = []

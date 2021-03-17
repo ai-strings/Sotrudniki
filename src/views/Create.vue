@@ -6,9 +6,9 @@
         <label for="" class="vue-input-wr-label"> ФИО сотрудника </label>
           <input placeholder="Иванов Иван Иванович" type="text" class="vue-input vue-input-fullname" v-model="formData.fullName">
         <label for="" class="vue-input-wr-label"> Дата рождения сотрудника </label>
-          <input v-mask="'####-##-##'" placeholder="год-мм-дд" type="tel" class="vue-input vue-input-birthdate" v-model="formData.birthDate">
+          <input v-mask="'##-##-####'" placeholder="дд-мм-год" type="text" class="vue-input vue-input-birthdate" v-model="formData.birthDate">
         <label for="" class="vue-input-wr-label"> Описание сотрудника </label>
-          <textarea type="text" class="vue-textarea vue-input-description" maxlength="100"  v-model="formData.description"></textarea>
+          <textarea placeholder="Макс. 100 символов" type="text" class="vue-textarea vue-input-description" maxlength="100"  v-model="formData.description"></textarea>
         <div class="btn-controls">
           <button @submit="checkFullname" type="submit" class="btn vue-add-worker-sbmt"> Сохранить </button>
           <button @click="$router.push('/')" class="btn vue-add-worker-sbmt"> Отменить </button>
@@ -60,11 +60,12 @@ export default {
       if (this.formData.fullName !== '' &&
         this.formData.fullName.trim().indexOf(' ') !== -1 &&
         (this.formData.birthDate.length === 10 &&
-        parseInt(this.formData.birthDate.substring(5, 7)) <= 12 &&
-        parseInt(this.formData.birthDate.substring(8, 10)) <= 31)) {
+        parseInt(this.formData.birthDate.substring(3, 5)) <= 12 &&
+        parseInt(this.formData.birthDate.substring(0, 2)) <= 31)) {
         const splitFullName = { ...this.formData.fullName.split(/(\s+)/).filter(function (e) { return e.trim().length > 0 }) }
         const { firstName, lastName, middleName } = { firstName: splitFullName[1], lastName: splitFullName[0], middleName: splitFullName[2] }
-        const { birthDate, description } = this.formData
+        const birthDate = this.formData.birthDate.trim().split('-').reverse().join('-')
+        const { description } = this.formData
         const payload = {
           worker: {
             firstName,
@@ -95,12 +96,12 @@ export default {
           // console.log(this.formData.birthDate.length < 10)
           this.errors.push('Введите дату в формате: год-мм-дд')
           setTimeout(() => { this.errors = [] }, 3000)
-        } else if (parseInt(this.formData.birthDate.substring(5, 7)) > 12) {
+        } else if (parseInt(this.formData.birthDate.substring(3, 5)) > 12) {
           this.errors.push('В году может быть не более 12 месяцев :)')
           setTimeout(() => {
             this.errors = []
           }, 3000)
-        } else if (parseInt(this.formData.birthDate.substring(8, 10)) > 31) {
+        } else if (parseInt(this.formData.birthDate.substring(0, 2)) > 31) {
           this.errors.push('В месяце может быть не более 31 дня :)')
           setTimeout(() => {
             this.errors = []
